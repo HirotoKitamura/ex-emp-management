@@ -68,6 +68,9 @@ public class AdministratorController {
 	 */
 	@RequestMapping("/login")
 	public String login(LoginForm form, Model model) {
+		if(form.getMailAddress() == null) {
+			return "administrator/login";
+		}
 		Administrator admin = administratorService.login(form.getMailAddress(), form.getPassword());
 		if (admin == null) {
 			model.addAttribute("error", "メールアドレスまたはパスワードが不正です。");
