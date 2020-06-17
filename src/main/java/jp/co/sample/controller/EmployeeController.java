@@ -23,7 +23,7 @@ import jp.co.sample.service.EmployeeService;
 public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
-	
+
 	@Autowired
 	private HttpSession session;
 
@@ -63,7 +63,7 @@ public class EmployeeController {
 	 * 従業員の扶養人数を更新.
 	 * 
 	 * @param form 従業員のIDと入力された扶養人数が入ったフォーム
-	 * @return　従業員一覧画面
+	 * @return 従業員一覧画面
 	 */
 	@RequestMapping("/update")
 	public String update(UpdateEmployeeForm form) {
@@ -72,7 +72,12 @@ public class EmployeeController {
 		employeeService.update(employee);
 		return "redirect:/employee/showList";
 	}
-	
+
+	/**
+	 * ログアウト.
+	 * 
+	 * @return ログイン画面
+	 */
 	@RequestMapping("/logout")
 	public String logout() {
 		session.invalidate();
