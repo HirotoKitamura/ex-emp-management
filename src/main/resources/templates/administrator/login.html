@@ -37,7 +37,7 @@
 					<form method="post" action="../employee/list.html" th:action="@{/login}" th:object="${loginForm}">
 						<fieldset>
 							<legend>ログイン</legend>
-							<div class="form-group" th:if="${error!=null}">
+							<div class="form-group" th:if="${error}">
 								<div class="alert alert-danger">
 									<p th:text="${error}"></p>
 								</div>
