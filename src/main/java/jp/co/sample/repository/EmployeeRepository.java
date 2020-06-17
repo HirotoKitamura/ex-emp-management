@@ -21,7 +21,7 @@ import jp.co.sample.domain.Employee;
 @Repository
 public class EmployeeRepository {
 	@Autowired
-	NamedParameterJdbcTemplate template;
+	private NamedParameterJdbcTemplate template;
 
 	/**
 	 * RowMapper.
@@ -41,7 +41,8 @@ public class EmployeeRepository {
 	 * @return 検索結果のリスト
 	 */
 	public List<Employee> findAll() {
-		String sql = "SELECT * FROM employees ORDER BY hire_date DESC;";
+		String sql = "SELECT id,name,image,gender,hire_date,mail_address,zip_code"
+				+ ",address,telephone,salary,characteristics,dependents_count FROM employees ORDER BY hire_date DESC;";
 		return template.query(sql, EMPLOYEE_ROW_MAPPER);
 	}
 
@@ -52,7 +53,8 @@ public class EmployeeRepository {
 	 * @return 取得された従業員情報
 	 */
 	public Employee load(Integer id) {
-		String sql = "SELECT * FROM employees WHERE id = :id;";
+		String sql = "SELECT id,name,image,gender,hire_date,mail_address,zip_code"
+				+ ",address,telephone,salary,characteristics,dependents_count FROM employees WHERE id = :id;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		return template.queryForObject(sql, param, EMPLOYEE_ROW_MAPPER);
 	}

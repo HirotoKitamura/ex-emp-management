@@ -36,12 +36,12 @@ public class Administrator {
 		this.password = password;
 	}
 
-	public Administrator(String name, String mailAddress, String password) {
-		super();
-		this.name = name;
-		this.mailAddress = mailAddress;
-		this.password = password;
-	}
+//	public Administrator(String name, String mailAddress, String password) {
+//		super();
+//		this.name = name;
+//		this.mailAddress = mailAddress;
+//		this.password = password;
+//	}
 
 	public Integer getId() {
 		return id;
