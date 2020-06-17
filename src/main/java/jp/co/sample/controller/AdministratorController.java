@@ -28,6 +28,7 @@ public class AdministratorController {
 
 	@Autowired
 	private HttpSession session;
+
 	/**
 	 * 管理者登録画面の入力値チェック用.
 	 * 
@@ -57,17 +58,25 @@ public class AdministratorController {
 	public String toLogin() {
 		return "administrator/login";
 	}
-	
+
+	/**
+	 * ログインする.
+	 * 
+	 * @param form  ログインフォームに入力された情報
+	 * @param model リクエストスコープ
+	 * @return ログイン成功なら従業員一覧画面、失敗ならログイン画面
+	 */
 	@RequestMapping("/login")
 	public String login(LoginForm form, Model model) {
 		Administrator admin = administratorService.login(form.getMailAddress(), form.getPassword());
-		if(admin == null) {
+		if (admin == null) {
 			model.addAttribute("error", "メールアドレスまたはパスワードが不正です。");
 			return "administrator/login";
 		}
 		session.setAttribute("administratorName", admin.getName());
 		return "forward:/employee/showList";
 	}
+
 	/**
 	 * 管理者登録の画面を呼び出す.
 	 * 
