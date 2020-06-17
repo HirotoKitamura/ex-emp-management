@@ -36,7 +36,7 @@ public class EmployeeRepository {
 	};
 
 	/**
-	 * 全件検索.
+	 * 全件検索　入社日の降順.
 	 * 
 	 * @return 検索結果のリスト
 	 */
