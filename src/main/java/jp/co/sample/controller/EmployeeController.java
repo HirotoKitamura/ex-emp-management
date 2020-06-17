@@ -53,4 +53,18 @@ public class EmployeeController {
 		model.addAttribute("employee", employee);
 		return "employee/detail";
 	}
+
+	/**
+	 * 従業員の扶養人数を更新.
+	 * 
+	 * @param form 従業員のIDと入力された扶養人数が入ったフォーム
+	 * @return　従業員一覧画面
+	 */
+	@RequestMapping("/update")
+	public String update(UpdateEmployeeForm form) {
+		Employee employee = employeeService.showDetail(Integer.parseInt(form.getId()));
+		employee.setDependentsCount(Integer.parseInt(form.getDependentsCount()));
+		employeeService.update(employee);
+		return "redirect:/employee/showList";
+	}
 }
