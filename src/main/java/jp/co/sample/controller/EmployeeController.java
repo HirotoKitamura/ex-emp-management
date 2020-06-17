@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.sample.domain.Employee;
+import jp.co.sample.form.LoginForm;
 import jp.co.sample.form.UpdateEmployeeForm;
 import jp.co.sample.service.EmployeeService;
 
@@ -28,6 +29,11 @@ public class EmployeeController {
 	private HttpSession session;
 
 	@ModelAttribute
+	public LoginForm setUpLoginForm() {
+		return new LoginForm();
+	}
+
+	@ModelAttribute
 	public UpdateEmployeeForm setUpUpdateEmployeeForm() {
 		return new UpdateEmployeeForm();
 	}
@@ -36,11 +42,15 @@ public class EmployeeController {
 	 * 従業員一覧を出力.
 	 * 
 	 * @param model リクエストスコープ
-	 * @return 従業員一覧画面
+	 * @return 従業員一覧画面 ログインしていない場合はエラーを出してログイン画面へ
 	 * 
 	 */
 	@RequestMapping("/showList")
 	public String showList(Model model) {
+		if (session.getAttribute("administratorName") == null) {
+			model.addAttribute("error", "ログインしてください");
+			return "administrator/login";
+		}
 		model.addAttribute("employeeList", employeeService.showList());
 		return "employee/list";
 	}
@@ -50,10 +60,14 @@ public class EmployeeController {
 	 * 
 	 * @param id    クリックされた従業員のID
 	 * @param model リクエストスコープ
-	 * @return 従業員情報の画面
+	 * @return 従業員情報の画面 ログインしていない場合はエラーを出してログイン画面へ
 	 */
 	@RequestMapping("/showDetail")
 	public String showDetail(String id, Model model) {
+		if (session.getAttribute("administratorName") == null) {
+			model.addAttribute("error", "ログインしてください");
+			return "administrator/login";
+		}
 		Employee employee = employeeService.showDetail(Integer.parseInt(id));
 		model.addAttribute("employee", employee);
 		return "employee/detail";
