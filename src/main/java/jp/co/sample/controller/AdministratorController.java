@@ -135,16 +135,28 @@ public class AdministratorController {
 	 */
 	@RequestMapping("/toEditProfile")
 	public String toEditProfile(Model model) {
+		if (session.getAttribute("administrator") == null) {
+			model.addAttribute("error", "ログインしてください");
+			return "administrator/login";
+		}
 		return "administrator/edit";
 	}
 	
+	/**
+	 * 管理者情報の変更
+	 * @param form　フォームに入力された情報　
+	 * @param result　入力値チェックの結果
+	 * @param model　リクエストスコープ
+	 * @return　遷移するページ
+	 */
 	@RequestMapping("/editProfile")
 	public String editProfile(@Validated InsertAdministratorForm form, BindingResult result, Model model) {
 		boolean hasErrors = false;
 		if (result.hasErrors()) {
 			hasErrors = true;
 		}
-		if (!administratorService.isValidMailAddress(form.getMailAddress())) {
+		if (!administratorService.isValidMailAddress(form.getMailAddress()) 
+				&& !form.getMailAddress().equals(((Administrator)session.getAttribute("administrator")).getMailAddress())) {
 			model.addAttribute("error", "入力されたメールアドレスは既に使用されています");
 			hasErrors = true;
 		}

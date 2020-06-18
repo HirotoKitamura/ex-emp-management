@@ -35,7 +35,7 @@
 										<label class="error-messages" th:errors="*{name}"></label>
 										<input type="text" name="name"
 											id="name" class="form-control" placeholder="山田太郎"
-											th:field="*{name}">
+											th:value="${session.administrator.name}">
 									</div>
 								</div>
 							</div>
@@ -48,7 +48,7 @@
 										<label class="error-messages" th:text="${error}"></label>
 										<input type="text"
 											name="mailAddress" id="mailAddress" class="form-control"
-											placeholder="yamada@mail.com" th:field="*{mailAddress}">
+											placeholder="yamada@mail.com" th:value="${session.administrator.mailAddress}">
 									</div>
 								</div>
 							</div>
@@ -60,7 +60,7 @@
 										<label class="error-messages" th:errors="*{password}"></label>
 										<input type="password"
 											name="password" id="password" class="form-control"
-											placeholder="password" th:field="*{password}">
+											placeholder="password" th:value="${session.administrator.password}">
 									</div>
 								</div>
 							</div>
@@ -69,7 +69,7 @@
 								<div class="row">
 									<div class="col-sm-12">
 										<button type="submit" class="btn btn-primary">登録</button>
-										<a class="btn btn-primary" href="javascript:history.back()">登録せず戻る</a>
+										<a class="btn btn-primary" th:href="@{/employee/showList}">従業員一覧に戻る</a>
 									</div>
 								</div>
 							</div>
