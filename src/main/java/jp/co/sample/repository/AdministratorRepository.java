@@ -43,6 +43,17 @@ public class AdministratorRepository {
 	}
 
 	/**
+	 * 管理者情報をIDから変更.
+	 * 
+	 * @param administrator 新しい管理者情報
+	 */
+	public void update(Administrator administrator) {
+		String sql = "UPDATE administrators SET name=:name, mail_address=:mailAddress, password=:password WHERE id=:id;";
+		SqlParameterSource param = new BeanPropertySqlParameterSource(administrator);
+		template.update(sql, param);
+	}
+
+	/**
 	 * メールアドレスとパスワードから管理者情報を取得.
 	 * 
 	 * 1件も取れない場合はnullを返す

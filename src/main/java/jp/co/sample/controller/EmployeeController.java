@@ -50,7 +50,7 @@ public class EmployeeController {
 	 */
 	@RequestMapping("/showList")
 	public String showList(Model model) {
-		if (session.getAttribute("administratorName") == null) {
+		if (session.getAttribute("administrator") == null) {
 			model.addAttribute("error", "ログインしてください");
 			return "administrator/login";
 		}
@@ -67,7 +67,7 @@ public class EmployeeController {
 	 */
 	@RequestMapping("/showDetail")
 	public String showDetail(Integer id, Model model) {
-		if (session.getAttribute("administratorName") == null) {
+		if (session.getAttribute("administrator") == null) {
 			model.addAttribute("error", "ログインしてください");
 			return "administrator/login";
 		}

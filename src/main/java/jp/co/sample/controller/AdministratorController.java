@@ -70,7 +70,7 @@ public class AdministratorController {
 	 */
 	@RequestMapping("/login")
 	public String login(LoginForm form, Model model) {
-		if(form.getMailAddress() == null) {
+		if (form.getMailAddress() == null) {
 			return "administrator/login";
 		}
 		Administrator admin = administratorService.login(form.getMailAddress(), form.getPassword());
@@ -78,7 +78,7 @@ public class AdministratorController {
 			model.addAttribute("error", "メールアドレスまたはパスワードが不正です。");
 			return "administrator/login";
 		}
-		session.setAttribute("administratorName", admin.getName());
+		session.setAttribute("administrator", admin);
 		return "forward:/employee/showList";
 	}
 
@@ -101,14 +101,14 @@ public class AdministratorController {
 	@RequestMapping("/insert")
 	public String insert(@Validated InsertAdministratorForm form, BindingResult result, Model model) {
 		boolean hasErrors = false;
-		if(result.hasErrors()) {
+		if (result.hasErrors()) {
 			hasErrors = true;
 		}
-		if(!administratorService.isValidMailAddress(form.getMailAddress())) {
+		if (!administratorService.isValidMailAddress(form.getMailAddress())) {
 			model.addAttribute("error", "入力されたメールアドレスは既に使用されています");
 			hasErrors = true;
 		}
-		if(hasErrors) {
+		if (hasErrors) {
 			return toInsert(model);
 		}
 		Administrator admin = new Administrator();
@@ -116,7 +116,7 @@ public class AdministratorController {
 		administratorService.insert(admin);
 		return "redirect:/";
 	}
-	
+
 	/**
 	 * ログアウト.
 	 * 
@@ -126,5 +126,37 @@ public class AdministratorController {
 	public String logout() {
 		session.invalidate();
 		return "redirect:/";
+	}
+
+	/**
+	 * 管理者情報変更画面に飛ぶ.
+	 * 
+	 * @return 管理者情報変更画面
+	 */
+	@RequestMapping("/toEditProfile")
+	public String toEditProfile(Model model) {
+		return "administrator/edit";
+	}
+	
+	@RequestMapping("/editProfile")
+	public String editProfile(@Validated InsertAdministratorForm form, BindingResult result, Model model) {
+		boolean hasErrors = false;
+		if (result.hasErrors()) {
+			hasErrors = true;
+		}
+		if (!administratorService.isValidMailAddress(form.getMailAddress())) {
+			model.addAttribute("error", "入力されたメールアドレスは既に使用されています");
+			hasErrors = true;
+		}
+		if (hasErrors) {
+			return toEditProfile(model);
+		}
+		Administrator admin = new Administrator();
+		BeanUtils.copyProperties(form, admin);
+		System.out.println(admin.getId());
+		admin.setId(((Administrator)session.getAttribute("administrator")).getId());
+		session.setAttribute("administrator", admin);
+		administratorService.update(admin);
+		return "redirect:/employee/showList";
 	}
 }

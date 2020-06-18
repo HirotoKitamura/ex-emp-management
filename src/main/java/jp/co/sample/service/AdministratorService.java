@@ -29,6 +29,15 @@ public class AdministratorService {
 	}
 
 	/**
+	 * 管理者情報をIDから変更.
+	 * 
+	 * @param administrator 新しい管理者情報
+	 */
+	public void update(Administrator administrator) {
+		administratorRepository.update(administrator);
+	}
+
+	/**
 	 * 管理者のログイン.
 	 * 
 	 * @param mailAddress 入力されたメールアドレス
