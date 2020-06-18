@@ -65,12 +65,12 @@ public class EmployeeController {
 	 * @return 従業員情報の画面 ログインしていない場合はエラーを出してログイン画面へ
 	 */
 	@RequestMapping("/showDetail")
-	public String showDetail(String id, Model model) {
+	public String showDetail(Integer id, Model model) {
 		if (session.getAttribute("administratorName") == null) {
 			model.addAttribute("error", "ログインしてください");
 			return "administrator/login";
 		}
-		Employee employee = employeeService.showDetail(Integer.parseInt(id));
+		Employee employee = employeeService.showDetail(id);
 		model.addAttribute("employee", employee);
 		return "employee/detail";
 	}
@@ -86,8 +86,8 @@ public class EmployeeController {
 		if(result.hasErrors()) {
 			return showDetail(form.getId(), model);
 		}
-		Employee employee = employeeService.showDetail(Integer.parseInt(form.getId()));
-		employee.setDependentsCount(Integer.parseInt(form.getDependentsCount()));
+		Employee employee = employeeService.showDetail(form.getId());
+		employee.setDependentsCount(form.getDependentsCount());
 		employeeService.update(employee);
 		return "redirect:/employee/showList";
 	}
