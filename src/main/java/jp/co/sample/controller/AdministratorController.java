@@ -88,7 +88,7 @@ public class AdministratorController {
 	 * @return 管理者登録の画面
 	 */
 	@RequestMapping("/toInsert")
-	public String toInsert() {
+	public String toInsert(Model model) {
 		return "administrator/insert";
 	}
 
@@ -99,9 +99,13 @@ public class AdministratorController {
 	 * @return ログイン画面 入力値チェックで弾かれた場合は遷移しない
 	 */
 	@RequestMapping("/insert")
-	public String insert(@Validated InsertAdministratorForm form, BindingResult result) {
+	public String insert(@Validated InsertAdministratorForm form, BindingResult result, Model model) {
 		if(result.hasErrors()) {
-			return toInsert();
+			return toInsert(model);
+		}
+		if(!administratorService.isValidMailAddress(form.getMailAddress())) {
+			model.addAttribute("error", "入力されたメールアドレスは既に使用されています");
+			return toInsert(model);
 		}
 		Administrator admin = new Administrator();
 		BeanUtils.copyProperties(form, admin);

@@ -24,8 +24,7 @@ public class AdministratorRepository {
 	NamedParameterJdbcTemplate template;
 
 	/**
-	 * RowMapper.
-	 * データベースのデータをAdministratorオブジェクトに入れる
+	 * RowMapper. データベースのデータをAdministratorオブジェクトに入れる
 	 */
 	private static final RowMapper<Administrator> ADMIN_ROW_MAPPER = (rs, i) -> {
 		return new Administrator(rs.getInt("id"), rs.getString("name"), rs.getString("mail_address"),
@@ -61,5 +60,23 @@ public class AdministratorRepository {
 			return null;
 		}
 		return adminList.get(0);
+	}
+
+	/**
+	 * メールアドレスからメールアドレスを取得.
+	 * 
+	 * 入力されたメールアドレスが存在するかチェックする
+	 * 
+	 * @param mailAddress メールアドレス
+	 * @return 取得されたメールアドレス 存在しなければnull
+	 */
+	public String findByMailAddress(String mailAddress) {
+		String sql = "SELECT mail_address FROM administrators WHERE mail_address = :mailAddress";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", mailAddress);
+		List<String> mailList = template.queryForList(sql, param, String.class);
+		if (mailList.size() == 0) {
+			return null;
+		}
+		return mailList.get(0);
 	}
 }

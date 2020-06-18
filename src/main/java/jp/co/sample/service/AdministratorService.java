@@ -18,7 +18,7 @@ import jp.co.sample.repository.AdministratorRepository;
 public class AdministratorService {
 	@Autowired
 	private AdministratorRepository administratorRepository;
-	
+
 	/**
 	 * 管理者を登録.
 	 * 
@@ -27,16 +27,28 @@ public class AdministratorService {
 	public void insert(Administrator administrator) {
 		administratorRepository.insert(administrator);
 	}
-	
+
 	/**
 	 * 管理者のログイン.
 	 * 
 	 * @param mailAddress 入力されたメールアドレス
-	 * @param password　入力されたパスワード
-	 * @return　取得された管理者情報
+	 * @param password    入力されたパスワード
+	 * @return 取得された管理者情報
 	 */
 	public Administrator login(String mailAddress, String password) {
 		return administratorRepository.findByMailAddressAndPassword(mailAddress, password);
+	}
+
+	/**
+	 * 入力されたメールアドレスが使用できるかチェック.
+	 * 
+	 * 既にDBに登録されていれば使用できない
+	 * 
+	 * @param mailAddress 入力されたメールアドレス
+	 * @return DB上に存在しなければtrue、存在すればfalse
+	 */
+	public boolean isValidMailAddress(String mailAddress) {
+		return (administratorRepository.findByMailAddress(mailAddress) == null);
 	}
 
 }
