@@ -100,11 +100,15 @@ public class AdministratorController {
 	 */
 	@RequestMapping("/insert")
 	public String insert(@Validated InsertAdministratorForm form, BindingResult result, Model model) {
+		boolean hasErrors = false;
 		if(result.hasErrors()) {
-			return toInsert(model);
+			hasErrors = true;
 		}
 		if(!administratorService.isValidMailAddress(form.getMailAddress())) {
 			model.addAttribute("error", "入力されたメールアドレスは既に使用されています");
+			hasErrors = true;
+		}
+		if(hasErrors) {
 			return toInsert(model);
 		}
 		Administrator admin = new Administrator();
