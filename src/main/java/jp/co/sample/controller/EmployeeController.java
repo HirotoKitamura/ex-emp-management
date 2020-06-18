@@ -88,6 +88,8 @@ public class EmployeeController {
 		}
 		Employee employee = employeeService.showDetail(form.getId());
 		employee.setDependentsCount(form.getDependentsCount());
+		employee.setCharacteristics(form.getCharacteristics());
+		employee.setSalary(form.getSalary());
 		employeeService.update(employee);
 		return "redirect:/employee/showList";
 	}

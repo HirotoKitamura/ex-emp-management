@@ -37,6 +37,7 @@
 					<!-- ここにモックのform要素を貼り付けます -->
 
 					<form method="post" action="list.html" th:action="@{/employee/update}" th:object="${updateEmployeeForm}">
+						<input type="hidden" name="id" th:value="${employee.id}">
 						<fieldset>
 							<legend>従業員情報</legend>
 							<table class="table table-striped">
@@ -74,23 +75,31 @@
 								</tr>
 								<tr>
 									<th nowrap>給料</th>
-									<td><span th:text="${employee.salary}">400000円</span></td>
+									<td><label class="error-messages" th:errors="*{salary}"></label>
+										<label class="control-label" style="color: red"
+										for="salary"></label>
+										<input type="number" name="salary" id="salary"
+										class="form-control" value="3" th:value="${employee.salary}"></td>
 								</tr>
 								<tr>
 									<th nowrap>特性</th>
-									<td><span  th:text="${employee.characteristics}">明るく素直な性格です。リーダーシップを発揮します。新卒社員研修の時はグループ開発の時にリーダーを買ってでました。積極性も人間性も抜群です。周りに対する不満も聞いたことがありません。</span>
-									</td>
+									<td>
+										<label class="control-label" style="color: red"
+										for="characteristics"></label> 
+										<textarea name="characteristics" id="characteristics"
+										class="form-control" rows="5" th:text="${employee.characteristics}"></textarea></td>
 								</tr>
 								<tr>
 									<th nowrap>扶養人数</th>
 									<td><label class="error-messages" th:errors="*{dependentsCount}"> 扶養人数を入力してください </label>
 										<label class="control-label" style="color: red"
-										for="dependentsCount"></label> <input type="hidden" name="id" th:value="${employee.id}">
+										for="dependentsCount"></label>
 										<input type="number" name="dependentsCount" id="dependentsCount"
 										class="form-control" value="3" th:value="${employee.dependentsCount}"></td>
 								</tr>
 							</table>
 							<button type="submit" class="btn btn-primary">更新</button>
+							<button type="reset" class="btn btn-primary">リセット</button>
 						</fieldset>
 					</form>
 

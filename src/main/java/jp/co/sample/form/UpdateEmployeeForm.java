@@ -50,6 +50,7 @@ public class UpdateEmployeeForm {
 	/**
 	 * 給料.
 	 */
+	@Range(min = 0, max = 1000000000, message = "給料は0から10億までの数値で入力してください")
 	private Integer salary;
 	/**
 	 * 特性.
