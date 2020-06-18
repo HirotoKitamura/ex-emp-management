@@ -84,6 +84,10 @@ public class EmployeeController {
 	 */
 	@RequestMapping("/update")
 	public String update(@Validated UpdateEmployeeForm form, BindingResult result, Model model) {
+		if (session.getAttribute("administrator") == null) {
+			model.addAttribute("error", "ログインしてください");
+			return "administrator/login";
+		}
 		if(result.hasErrors()) {
 			return showDetail(form.getId(), model);
 		}

@@ -151,6 +151,10 @@ public class AdministratorController {
 	 */
 	@RequestMapping("/editProfile")
 	public String editProfile(@Validated InsertAdministratorForm form, BindingResult result, Model model) {
+		if (session.getAttribute("administrator") == null) {
+			model.addAttribute("error", "ログインしてください");
+			return "administrator/login";
+		}
 		boolean hasErrors = false;
 		if (result.hasErrors()) {
 			hasErrors = true;
@@ -165,7 +169,6 @@ public class AdministratorController {
 		}
 		Administrator admin = new Administrator();
 		BeanUtils.copyProperties(form, admin);
-		System.out.println(admin.getId());
 		admin.setId(((Administrator)session.getAttribute("administrator")).getId());
 		session.setAttribute("administrator", admin);
 		administratorService.update(admin);
