@@ -46,7 +46,8 @@
 					</ul>
 					<p class="navbar-text navbar-right">
 						<span th:text="${session.administratorName + 'さん'}">山田さん</span>こんにちは！
-						&nbsp;&nbsp;&nbsp; <a href="../administrator/login.html"
+						&nbsp;&nbsp;&nbsp;  <a href="../administrator/login.html"
+							th:href="@{/change}" class="navbar-link">登録情報の変更</a>&nbsp;<a href="../administrator/login.html"
 							th:href="@{/logout}" class="navbar-link">ログアウト</a>
 					</p>
 				</div>
