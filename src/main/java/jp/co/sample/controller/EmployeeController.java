@@ -79,7 +79,7 @@ public class EmployeeController {
 	 * 従業員の扶養人数を更新.
 	 * 
 	 * @param form 従業員のIDと入力された扶養人数が入ったフォーム
-	 * @return 従業員一覧画面
+	 * @return 従業員一覧画面 異常な入力があれば遷移しない
 	 */
 	@RequestMapping("/update")
 	public String update(@Validated UpdateEmployeeForm form, BindingResult result, Model model) {
