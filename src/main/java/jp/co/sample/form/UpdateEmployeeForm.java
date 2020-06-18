@@ -1,5 +1,7 @@
 package jp.co.sample.form;
 
+import org.hibernate.validator.constraints.Range;
+
 /**
  * 従業員情報更新のフォーム.
  * 
@@ -14,6 +16,7 @@ public class UpdateEmployeeForm {
 	/**
 	 * 扶養人数.
 	 */
+	@Range(min = 0, max = 1000, message = "扶養人数は0から1000までの数値で入力してください")
 	private String dependentsCount;
 
 	public String getId() {
