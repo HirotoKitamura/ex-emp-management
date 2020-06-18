@@ -1,6 +1,8 @@
 package jp.co.sample.form;
 
-import java.util.Date;
+import java.sql.Date;
+
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Range;
 
@@ -18,6 +20,7 @@ public class UpdateEmployeeForm {
 	/**
 	 * 名前.
 	 */
+	@NotBlank(message = "名前を入力してください")
 	private String name;
 	/**
 	 * 画像.

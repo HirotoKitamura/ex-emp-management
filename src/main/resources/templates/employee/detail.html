@@ -38,12 +38,17 @@
 
 					<form method="post" action="list.html" th:action="@{/employee/update}" th:object="${updateEmployeeForm}">
 						<input type="hidden" name="id" th:value="${employee.id}">
+						<input type="hidden" name="image" th:value="${employee.image}">
 						<fieldset>
 							<legend>従業員情報</legend>
 							<table class="table table-striped">
 								<tr>
 									<th nowrap>従業員名</th>
-									<td><span th:text="${employee.name}">山田花子</span></td>
+									<td><label class="error-messages" th:errors="*{name}"></label>
+										<label class="control-label" style="color: red"
+										for="name"></label>
+										<input type="text" name="name" id="name"
+										class="form-control" value="3" th:value="${employee.name}"></td>
 								</tr>
 								<tr>
 									<th nowrap>写真</th>
@@ -51,27 +56,51 @@
 								</tr>
 								<tr>
 									<th nowrap>性別</th>
-									<td><span th:text="${employee.gender}">女性</span></td>
+									<td><label class="error-messages" th:errors="*{gender}"></label>
+										<label class="control-label" style="color: red"
+										for="gender"></label>
+										<input type="text" name="gender" id="gender"
+										class="form-control" value="3" th:value="${employee.gender}"></td>
 								</tr>
 								<tr>
 									<th nowrap>入社日</th>
-									<td><span th:text="${employee.hireDate}">2012/11/29</span></td>
+									<td><label class="error-messages" th:errors="*{hireDate}"></label>
+										<label class="control-label" style="color: red"
+										for="hireDate"></label>
+										<input type="date" name="hireDate" id="hireDate"
+										class="form-control" value="3" th:value="${employee.hireDate}"></td>
 								</tr>
 								<tr>
 									<th nowrap>メールアドレス</th>
-									<td><span th:text="${employee.mailAddress}">yamada@sample.com</span></td>
+									<td><label class="error-messages" th:errors="*{mailAddress}"></label>
+										<label class="control-label" style="color: red"
+										for="mailAddress"></label>
+										<input type="email" name="mailAddress" id="mailAddress"
+										class="form-control" value="3" th:value="${employee.mailAddress}"></td>
 								</tr>
 								<tr>
 									<th nowrap>郵便番号</th>
-									<td><span th:text="${employee.zipCode}">111-1111</span></td>
+									<td><label class="error-messages" th:errors="*{zipCode}"></label>
+										<label class="control-label" style="color: red"
+										for="zipCode"></label>
+										<input type="text" name="zipCode" id="zipCode"
+										class="form-control" value="3" th:value="${employee.zipCode}"></td>
 								</tr>
 								<tr>
 									<th nowrap>住所</th>
-									<td><span th:text="${employee.address}">東京都新宿区1-1-1</span></td>
+									<td><label class="error-messages" th:errors="*{address}"></label>
+										<label class="control-label" style="color: red"
+										for="address"></label>
+										<input type="text" name="address" id="address"
+										class="form-control" value="3" th:value="${employee.address}"></td>
 								</tr>
 								<tr>
 									<th nowrap>電話番号</th>
-									<td><span th:text="${employee.telephone}">090-0000-0000</span></td>
+									<td><label class="error-messages" th:errors="*{telephone}"></label>
+										<label class="control-label" style="color: red"
+										for="telephone"></label>
+										<input type="text" name="telephone" id="telephone"
+										class="form-control" value="3" th:value="${employee.telephone}"></td>
 								</tr>
 								<tr>
 									<th nowrap>給料</th>

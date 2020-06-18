@@ -1,6 +1,6 @@
 package jp.co.sample.domain;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * 従業員情報のドメインクラス.
